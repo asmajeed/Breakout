@@ -2,7 +2,7 @@
 //  GameScene.swift
 //  breakout
 //
-//  Created by Carter Bischof on 3/9/17.
+//  Created by Amer Majeed on 3/9/17.
 //  Copyright © 2017 Carter Bischof. All rights reserved.
 //
 
