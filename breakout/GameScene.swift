@@ -34,9 +34,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         makeLoseZone()
         
+        createBlocks()
+        
         ball.physicsBody?.applyImpulse(CGVector(dx: 5, dy: 5)) //This puts the ball into motion
         
-        ball.physicsBody?.isDynamic = true
         
     }
     
@@ -62,11 +63,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func didBegin(_ contact: SKPhysicsContact)
     {
-        if contact.bodyA.node?.name = "brick" || contact.bodyB.node?.name = "brick"
+        if contact.bodyA.node?.name == "brick" || contact.bodyB.node?.name == "brick"
         {
             print("brick hit")
         }
-        else if contact.bodyA.node?.name = "LoseZone" || contact.bodyB.node?.name = "LoseZone"
+        else if contact.bodyA.node?.name == "LoseZone" || contact.bodyB.node?.name == "LoseZone"
         {
             print("You Lose")
         }
@@ -118,7 +119,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         //This adds a physics frame around the ball.
         ball.physicsBody = SKPhysicsBody(rectangleOf: ball.size)
         
-        ball.physicsBody?.isDynamic = false
+        ball.physicsBody?.isDynamic = true
         
         //This is used for the square
         ball.physicsBody?.usesPreciseCollisionDetection = true
@@ -183,7 +184,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func makeLoseZone()
     {
         
-        let loseZone = SKSpriteNode(color: UIColor.red, size: CGSize(width: frame.width, height: 50))
+        let loseZone = SKSpriteNode(color: UIColor.clear, size: CGSize(width: frame.width, height: 50))
         
         //Set the location of the Lose Zone
         loseZone.position = CGPoint(x: frame.midX, y: frame.minY + 25)
@@ -195,6 +196,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         loseZone.physicsBody?.isDynamic = false
         
         addChild(loseZone)
+        
+    }
+ 
+    func createBricks()
+    {
+        var xposition = 10
+        var yposition = 20
+        
+        let blockWidth = (Int) ( screenWidth - 60)/5)
+        let blockHeight = 20
+        
+        for rows in 1...3{
+            for columns in 1...5{
+                let block = Block(frame: CGRect(y: xposition, y: yposition, width: blockWidth, height: blockHeight ))
+                block.backgroundColor = UIColor.redColor()
+                view.addSubview(block)
+                
+                blockArray.append(block)
+                allViewsArray.append(block)
+                
+                blockCount++
+                
+                xposition += (blockWidth + 10)
+                
+                
+            }
+            xposition = 10
+            yposition += (blockHeight + 10)
+        }
         
     }
     
